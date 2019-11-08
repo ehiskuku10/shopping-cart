@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title #{title}
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    block links
+      link(rel="stylesheet" href="/stylesheet/svg.css")
+      link(rel="stylesheet" href="/stylesheet/register.css")
+      link(rel="stylesheet" href="/stylesheet/layout.css")
+
+    body 
+      block header
+        header(class="main__header")
+          nav(class="top__navbar")
+            ul(class="top__navlist")  
+              li.top__navlist--item: a help
+              li.top__navlist--item: a log in
+              li.top__navlist--item: a
+                !=h.icon('user')
+              li.top__navlist--item: a
+                img.cart__image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
+        
+      block messages
+      if locals.flashes
+        .inner--flashes
+          .flash-messages
+            - const categories = Object.keys(locals.flashes)
+              each category in categories
+                each message in flashes[category]
+                  p!=message
+                  button.flash__remove(onClick="this.parentElement.remove()") &times;
+  
+
+      .content
+        block content

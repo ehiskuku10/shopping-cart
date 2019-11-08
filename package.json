@@ -1,0 +1,68 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "Ecommerce: Online Shopping application",
+  "private": true,
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "scripts": {
+    "prod": "node ./start.js --no-deprication",
+    "watch": "nodemon ./start.js --ignore public/",
+    "start": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
+    "assets": "webpack -w --display-max-modules 0",
+    "seed": "node ./data/seedDB.js",
+    "blowitallaway": "node ./data/seedDB.js --delete"
+  },
+  "author": "Kuku Ehidiamen",
+  "license": "ISC",
+  "browserslist": "last 2 versions",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.0.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.1.0",
+    "cookie-parser": "^1.4.4",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.1.0",
+    "es6-promisify": "^6.0.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "express-validator": "^5.2.0",
+    "html-to-text": "^5.1.1",
+    "jimp": "^0.8.5",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "juice": "^5.2.0",
+    "md5": "^2.2.1",
+    "mocha": "^6.2.2",
+    "mongoose": "^5.7.4",
+    "mongoose-mongodb-errors": "0.0.2",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.3.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1",
+    "pug": "^2.0.4",
+    "random-string": "^0.2.0",
+    "should": "^7.1.0",
+    "supertest": "^1.1.0",
+    "unirest": "^0.6.0",
+    "uuid": "^3.3.3",
+    "validate-phone-number-node-js": "0.0.1",
+    "webpack-cli": "^3.3.10"
+  },
+  "main": "start.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehiskuku10/shopping-cart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ehiskuku10/shopping-cart/issues"
+  },
+  "homepage": "https://github.com/ehiskuku10/shopping-cart#readme"
+}

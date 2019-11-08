@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  .container
+      h2.form__header Create Account
+      .form__content
+        form(method="post" action="/user/register")
+          .form__controls
+            .form__control
+              label First Name
+              input(type="text" name="first_name")
+            .form__control
+              label Last Name
+              input(type="text" name="last_name")
+            .form__control
+              label E-mail
+              input(type="email" name="email")
+            .form__control
+              label Password
+              input(type="password" name="password")
+            .form__control
+              label Confirm Password
+              input(type="password" name="password-confirm")
+            .form__control
+              label Phone Number (optional)
+              input(type="text" name="phone")
+          button(type="submit") Register
+        p(style="text-align: center; color: rgb(119, 118, 118); position: relative; left: -18px;") OR 
+        button(type="submit") Register with facebook
+
+  
