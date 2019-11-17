@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  main
+    div(class="product__content__row shared__content__row")
+      div(class="bcbs")
+        each tag in product.tags
+          a(class="cbs" href="/product/getTags/"+tag) #{tag} &nbsp;
+        a #{product.product_title}
+      div(class="product__content__row--sub1")
+        div(class="product__content__column--1")
+        div(class="product__content__column--2")
+          div(class="drs")
+            div(class="drs-header")
+              h3 delivery & returns
+          div(class="sif")
+            div(class="sif-header")
+              h3 seller information
+          div(class="hots")
+            h4 Have one to sell?
+            p Click here to list your product
+
+
+      

@@ -1,0 +1,9 @@
+extends ../layout
+
+include ../mixins/_sideBar
+
+block content
+  .dashboard-container 
+    +sideBar()
+    block item
+      .dashboard-content

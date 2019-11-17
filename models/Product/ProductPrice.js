@@ -3,16 +3,17 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const productPriceSchema = new Schema({
-    product_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product"
-    },
     product_discount: {
         type: Number
     },
-    product_price: {
+    current_price: {
         type: Number,
-        required: [true, 'price is required']
+        required: [true, 'current  price is required'],
+        default: 0
+    },
+    old_price: {
+      type: Number,
+      default: 0
     }
 })
 

@@ -10,6 +10,7 @@ require('./db/connection')
 
 // import all of our models
 require('./models/User')
+require('./models/Product/Product')
 
 // start the application
 const app = require('./app')

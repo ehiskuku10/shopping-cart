@@ -1,0 +1,9 @@
+mixin homeSubRowBody(items=[])
+  div(class="sub__row__body shared__sub__row__body")
+    each item in items
+      div(class="sub__row__body__child shared__sub__row__body__child")
+        a(href=`/product/${item._id}`)
+          div(class="image__container")
+            img(src=`/uploads/${item.product_image[0]}`)
+        div(class="image__description")
+    

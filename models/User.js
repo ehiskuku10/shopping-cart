@@ -37,11 +37,11 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    privileges: [{
+    privilege: {
         type: mongoose.Schema.ObjectId,
         ref: "Privilege",
         required: [true, 'User privilege required']
-    }]
+    }
 })
 
 userSchema.virtual('gravatar').get(function() {

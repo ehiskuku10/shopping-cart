@@ -11,6 +11,8 @@ const flash = require('connect-flash')
 const expressValidator = require('express-validator')
 const index = require('./routes/index')
 const user = require('./routes/user')
+const product = require('./routes/product/product')
+const admin = require('./routes/admin')
 const helpers = require('./helpers')
 const errorHandlers = require('./handlers/errorHandlers')
 require('./handlers/passport')
@@ -59,16 +61,18 @@ app.use(flash())
 
 // pass variables to our template + all requests
 app.use((req, res, next) => {
-    res.locals.h = helpers;
-    res.locals.flashes = req.flash();
-    res.locals.user = req.user || null;
-    res.locals.currentPath = req.path;
-    next();
+  res.locals.h = helpers;
+  res.locals.flashes = req.flash();
+  res.locals.user = req.user || null;
+  res.locals.currentPath = req.path;
+  next();
 });
 
 // After allllll that above middleware, we finally handle our own routes!
-app.use('/', index);
+app.use('/home', index);
 app.use('/user', user);
+app.use('/product', product);
+app.use('/admin', admin);
 
 // If that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);

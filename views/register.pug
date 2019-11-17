@@ -1,27 +1,27 @@
 extends layout
 
 block content
-  .container
-      h2.form__header Create Account
-      .form__content
+  div(class="register__form__container shared__form__container")
+      h2 Create Account
+      .register__form__content
         form(method="post" action="/user/register")
-          .form__controls
-            .form__control
+          div(class="shared__form__controls register__form__controls")
+            div(class="shared__form__control register__form__control")
               label First Name
               input(type="text" name="first_name")
-            .form__control
+            div(class="shared__form__control register__form__control")
               label Last Name
               input(type="text" name="last_name")
-            .form__control
+            div(class="shared__form__control register__form__control")
               label E-mail
               input(type="email" name="email")
-            .form__control
+            div(class="shared__form__control register__form__control")
               label Password
               input(type="password" name="password")
-            .form__control
+            div(class="shared__form__control register__form__control")
               label Confirm Password
               input(type="password" name="password-confirm")
-            .form__control
+            div(class="shared__form__control register__form__control")
               label Phone Number (optional)
               input(type="text" name="phone")
           button(type="submit") Register

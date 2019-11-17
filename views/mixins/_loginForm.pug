@@ -1,0 +1,11 @@
+mixin loginForm()
+  div(class="login__form__container shared__form__container")
+      h2 Log in
+      .login__form__content
+        form(method="post" action="/user/login")
+          div(class="shared__form__controls login__form__controls")
+            div(class="shared__form__control login__form__control")
+              input(type="email" name="email" placeholder="E-mail")
+            div(class="shared__form__control login__form__control")
+              input(type="password" name="password" placeholder="Password")
+          button(type="submit") Log In

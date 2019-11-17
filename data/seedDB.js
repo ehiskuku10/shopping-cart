@@ -11,21 +11,30 @@ mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 
 // import models you need to seed - they need to be imported only once
 const Privilege = require('../models/Privilege');
+const Category = require('../models/Product/ProductCategory');
+const Size = require('../models/Product/ProductSize');
 
 
 const privileges = JSON.parse(fs.readFileSync(__dirname + '/privileges.json', 'utf-8'));
+const categories = JSON.parse(fs.readFileSync(__dirname + '/productCategories.json', 'utf-8'));
+const sizes = JSON.parse(fs.readFileSync(__dirname + '/productSizes.json', 'utf-8'));
 
 
 async function deleteData() {
   console.log('😢😢 Goodbye Data...');
   await Privilege.remove();
+  await Category.remove();
+  await Size.remove();
   console.log('Data Deleted. To load seeds, run\n\n\t npm run seed\n\n');
   process.exit();
 }
 
 async function loadData() {
   try {
-    await Privilege.insertMany(privileges);
+    const privilegesPromise = Privilege.insertMany(privileges);
+    const categoriesPromise = Category.insertMany(categories)
+    const sizesPromise = Size.insertMany(sizes)
+    await Promise.all([privilegesPromise, categoriesPromise, sizesPromise])
     console.log('👍👍👍👍👍👍👍👍 Done!');
     process.exit();
   } catch(e) {

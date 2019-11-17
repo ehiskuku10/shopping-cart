@@ -5,20 +5,37 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
     block links
       link(rel="stylesheet" href="/stylesheet/svg.css")
-      link(rel="stylesheet" href="/stylesheet/register.css")
-      link(rel="stylesheet" href="/stylesheet/layout.css")
+      link(rel="stylesheet" href="/stylesheet/index.css")
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
 
     body 
       block header
-        header(class="main__header")
-          nav(class="top__navbar")
-            ul(class="top__navlist")  
-              li.top__navlist--item: a help
-              li.top__navlist--item: a log in
-              li.top__navlist--item: a
-                !=h.icon('user')
-              li.top__navlist--item: a
-                img.cart__image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
+        //- !=h.dump(topSellingItems)
+        header(class="layout__header--main")
+          nav(class="layout__navbar--top shared__navbar")
+            ul(class="layout__navlist--top shared__navlist")  
+              li.layout__navlist__item--top: a 
+                
+          nav(class="layout__navbar--sub shared__navbar")
+            ul(class="layout__navlist--sub shared__navlist")  
+              li.layout__navlist__item--sub
+                div.find
+                  i.fa.fa-search
+                  input.search_product(type="text" placeholder="Search Products, Brands and Categories")
+                button Search
+              if !user
+                li.layout__navlist__item--sub
+                  a(href="/user/login")
+                    if false
+                      !=h.icon('user')
+                    | Login
+              else 
+                li.layout__navlist__item--sub: a(href="/user/logout") logout
+              li.layout__navlist__item--sub: a Help
+              li.layout__navlist__item--sub: a
+                if false
+                  img.cart__image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
+                | cart
         
       block messages
       if locals.flashes
