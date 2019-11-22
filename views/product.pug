@@ -2,13 +2,42 @@ extends layout
 
 block content
   main
-    div(class="product__content__row shared__content__row")
-      div(class="bcbs")
+    div(class="product__row--1")
+      div(class="product__bcbs")
         each tag in product.tags
-          a(class="cbs" href="/product/getTags/"+tag) #{tag} &nbsp;
-        a #{product.product_title}
+          a(class="product__cbs" href="/product/getTags/"+tag) #{tag} &nbsp;
+        a(class="product__bcbs_title") #{product.product_title}
       div(class="product__content__row--sub1")
         div(class="product__content__column--1")
+          div(class="imgshr")
+            div(class="img")
+              img(src=`/uploads/${product.product_image}`)
+            div(class="shr")
+              h3 share this product
+              button(class="btn-fb")
+              button(class="btn-twitter")
+          div(class="proinfo")
+            div(class="proinfo-header")
+              h3 #{product.product_title}
+            div(class="rtn-prc")
+              div(class="brnd") 
+                | Brand: 
+                a(href="#") 'reserved for brand name' | 
+                a(href="#") Similar product from 'reserved for brand name'
+              div(class="rtn")
+                span(class="str-rtn")
+                a(href="#") 'reserved for product rating'
+              div(class="prc")
+                span(class="new-prc") # #{product.product_price.current_price}
+                div(class="old-prc-pct")
+                  span(class="old-prc") # 1000000
+                  span(class="pct") -#{product.product_price.product_discount}%
+            div(class="add2cart")
+              form()
+                div(class="add2cart-header")
+                  span select variation
+            section(class="promo")
+              h3 promotions
         div(class="product__content__column--2")
           div(class="drs")
             div(class="drs-header")
@@ -19,6 +48,31 @@ block content
           div(class="hots")
             h4 Have one to sell?
             p Click here to list your product
+      div(class="product__content__row--sub2")
+        div(class="product__content__column--1")
+          div(class="pds")
+            div(class="header")
+              h3 product details
+            div(class="body")
+              blockquote #{product.description}
+          div(class="spec")
+            div(class="header")
+              h3 specifications
+            div(class="kfwb")  
+              div(class="kf")
+              div(class="wb")
+              div(class="spec-child")
+          div(class="mpl")
+            div(class="header")
+              h3 most popular
+          div(class="cfb")
+            div(class="header")
+              h3 customer feedback
+        div(class="product__content__column--2")
+          div(class="prds")
+            div(class="prds-header")
+              h3 product details
+
 
 
       

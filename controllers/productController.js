@@ -32,7 +32,7 @@ exports.showCase = async (req, res) => {
 exports.getOneProduct = async (req, res) => {
   const product = await Product.findOne({
     _id: req.params.id
-  }, {_id: 0})
+  }, {_id: 0}).populate('product_price')
   return res.render('product', {
     title: product.short_description,
     product

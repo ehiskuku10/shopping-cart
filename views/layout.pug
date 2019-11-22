@@ -6,36 +6,34 @@ html
     block links
       link(rel="stylesheet" href="/stylesheet/svg.css")
       link(rel="stylesheet" href="/stylesheet/index.css")
+      link(rel="stylesheet" href="/stylesheet/layout/layout.css")
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
 
     body 
       block header
         //- !=h.dump(topSellingItems)
-        header(class="layout__header--main")
-          nav(class="layout__navbar--top shared__navbar")
-            ul(class="layout__navlist--top shared__navlist")  
-              li.layout__navlist__item--top: a 
-                
-          nav(class="layout__navbar--sub shared__navbar")
-            ul(class="layout__navlist--sub shared__navlist")  
+        header(class="layout__header")
+          nav(class="layout__navbar--top")
+          nav(class="layout__navbar--sub")
+            ul(class="layout__navlist--sub")  
               li.layout__navlist__item--sub
-                div.find
-                  i.fa.fa-search
-                  input.search_product(type="text" placeholder="Search Products, Brands and Categories")
-                button Search
+                div.layout__nav__search_block
+                  i.fa.fa-search &nbsp;&nbsp;
+                  input.layout__nav__search_input(type="text" placeholder="Search Products, Brands and Categories")
+                button.layout__nav__btn.btn--search search
               if !user
                 li.layout__navlist__item--sub
                   a(href="/user/login")
                     if false
                       !=h.icon('user')
-                    | Login
+                    span login
               else 
-                li.layout__navlist__item--sub: a(href="/user/logout") logout
-              li.layout__navlist__item--sub: a Help
+                li.layout__navlist__item--sub: a(href="/user/logout"): span logout
+              li.layout__navlist__item--sub: a: span help
               li.layout__navlist__item--sub: a
                 if false
-                  img.cart__image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
-                | cart
+                  img.layout__nav__cart_image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
+                span cart
         
       block messages
       if locals.flashes

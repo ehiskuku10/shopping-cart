@@ -1,0 +1,68 @@
+/*--------------------------
+    REGISTER.PUG 
+--------------------------*/
+
+.register__form__container {
+  height: auto;
+  width: 800px;
+  padding-top: 3%;
+  margin: auto;
+}
+
+.register__form__title {
+  margin-bottom: 40px;
+}
+
+.register__form__block {
+  height: 650px;
+}
+
+.register__form__controls{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.register__form__control {
+  width: 370px;
+  padding: 10px 0px 10px 0px;
+  margin-right: 15px;
+}
+
+.register__form__control > input {
+  border: none;
+  border-bottom: 1px solid rgb(226, 224, 224);
+  width: 100%;
+  outline: none;
+  height: 40px;
+  padding-left: 20px;
+}
+
+.register__form__control > label {
+  font-size: 15px;
+  position: relative;
+  color: #878a8a;
+  font-weight: 400;
+}
+
+.btn-fb {
+  background-color: #464a85;
+}
+
+.btn-norm { 
+  background-color: #282929;
+  margin-top: 10px;
+}
+
+.register__form__button {
+  width: 94.5%;
+  padding: 18px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  color: #fff;
+  outline: none;
+  font-family: HelveticaNeue Condensed;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: none;
+}

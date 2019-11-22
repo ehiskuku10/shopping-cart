@@ -1,31 +1,36 @@
 extends layout
 
+block links
+  link(rel="stylesheet" href="/stylesheet/index.css")
+  link(rel="stylesheet" href="/stylesheet/layout/layout.css")
+  link(rel="stylesheet" href="/stylesheet/register/register.css")
+
 block content
-  div(class="register__form__container shared__form__container")
-      h2 Create Account
-      .register__form__content
+  div(class="register__form__container")
+      h2.register__form__title Create Account
+      .register__form__block
         form(method="post" action="/user/register")
-          div(class="shared__form__controls register__form__controls")
-            div(class="shared__form__control register__form__control")
+          div(class="register__form__controls")
+            div(class="register__form__control")
               label First Name
               input(type="text" name="first_name")
-            div(class="shared__form__control register__form__control")
+            div(class="register__form__control")
               label Last Name
               input(type="text" name="last_name")
-            div(class="shared__form__control register__form__control")
+            div(class="register__form__control")
               label E-mail
               input(type="email" name="email")
-            div(class="shared__form__control register__form__control")
+            div(class="register__form__control")
               label Password
               input(type="password" name="password")
-            div(class="shared__form__control register__form__control")
+            div(class="register__form__control")
               label Confirm Password
               input(type="password" name="password-confirm")
-            div(class="shared__form__control register__form__control")
+            div(class="register__form__control")
               label Phone Number (optional)
               input(type="text" name="phone")
-          button(type="submit") Register
+          button(class="register__form__button btn-norm" type="submit") Register
         p(style="text-align: center; color: rgb(119, 118, 118); position: relative; left: -18px;") OR 
-        button(type="submit") Register with facebook
+        button(class="register__form__button btn-fb" type="submit") Register with facebook
 
   

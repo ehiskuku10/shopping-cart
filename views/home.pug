@@ -1,39 +1,44 @@
 extends layout
 
+block links
+  link(rel="stylesheet" href="/stylesheet/index.css")
+  link(rel="stylesheet" href="/stylesheet/layout/layout.css")
+  link(rel="stylesheet" href="/stylesheet/home/home.css")
+
 include mixins/_homeSubRowBody
 
-block content 
-  main
-    div(class="home__content__row shared__content__row")
-      div(class="home__content__row--sub1")
-        div(class="home__content__column--1")
-        div(class="home__content__column--2")
-        div(class="home__content__column--3")
-      div(class="home__content__row--sub2 shared__content__row--sub")
-        div(class="sub__row__header shared__sub__row__header")
+block content
+  main(class="home")
+    div(class="home__content__row")
+      div(class="home__content__row--sub home__content__row--sub1")
+        div(class="home__ads--left")
+        div(class="home__carousel--main")
+        div(class="home__ads--right")
+      div(class="home__content__row--sub2 home__content__row--sub")
+        div(class="home__row_header--sub")
           h3 Top selling items
         +homeSubRowBody(topSellingItems)
-      div(class="home__content__row--sub3 shared__content__row--sub")
-        div(class="sub__row__header shared__sub__row__header")
+      div(class="home__content__row--sub3 home__content__row--sub")
+        div(class="home__row_header--sub")
           h3 Featured Categories
         +homeSubRowBody()
-      div(class="home__content__row--sub4 shared__content__row--sub")
-        div(class="sub__row__header shared__sub__row__header" id="daily-deals")
+      div(class="home__content__row--sub4 home__content__row--sub")
+        div(class="home__row_header--sub" id="daily-deals")
           h3 Deals of the day
         +homeSubRowBody(dailyDeals)
-      div(class="home__content__advert__row--sub5 shared__content__advert__row--sub")
-        div(class="ad__column1 shared__ad__column")
-        div(class="ad__column2 shared__ad__column")
-      div(class="home__content__advert__row--sub6 shared__content__advert__row--sub")
-        div(class="ad__column1 shared__ad__column")
-        div(class="ad__column2 shared__ad__column")
-      div(class="home__content__row--sub4 shared__content__row--sub")
-        div(class="sub__row__header shared__sub__row__header")
+      div(class="home__content__advert_row--sub1 home__content__advert_row--sub")
+        div(class="ad__column1 ad_column")
+        div(class="ad__column2 ad_column")
+      div(class="home__content__advert_row--sub2 home__content__advert_row--sub")
+        div(class="ad_column1 ad_column")
+        div(class="ad_column2 ad_column")
+      div(class="home__content__row--sub4 home__content__row--sub")
+        div(class="home__row_header--sub")
           h3 Deals of the day
         +homeSubRowBody()
-      div(class="home__content__advert__row--sub5 shared__content__advert__row--sub")
-        div(class="ad__column1 shared__ad__column")
-        div(class="ad__column2 shared__ad__column")
-      div(class="home__content__advert__row--sub6 shared__content__advert__row--sub")
-        div(class="ad__column1 shared__ad__column")
-        div(class="ad__column2 shared__ad__column")
+      div(class="home__content__advert_row--sub3 home__content__advert_row--sub")
+        div(class="ad_column1 ad_column")
+        div(class="ad_column2 ad_column")
+      div(class="home__content__advert_row--sub4 home__content__advert_row--sub")
+        div(class="ad_column1 ad_column")
+        div(class="ad_column2 ad_column")

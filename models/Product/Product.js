@@ -30,6 +30,10 @@ const productSchema = new Schema({
     required: "A forecast number is required",
     unique: true
   },
+  brand: {
+    type: String,
+    required: [true, 'You have to specify a brand']
+  },
   product_image: [{
     type: String,
     required: [true, 'image is required for this product']

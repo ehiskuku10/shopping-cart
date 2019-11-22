@@ -1,9 +1,10 @@
 mixin homeSubRowBody(items=[])
-  div(class="sub__row__body shared__sub__row__body")
+  div(class="home__row_body--sub")
     each item in items
-      div(class="sub__row__body__child shared__sub__row__body__child")
+      div(class="home__row_item--sub")
         a(href=`/product/${item._id}`)
-          div(class="image__container")
-            img(src=`/uploads/${item.product_image[0]}`)
-        div(class="image__description")
+          div(class="home__item__image_container")
+            img(class="home__item_image" src=`/uploads/${item.product_image[0]}`)
+        div(class="home__image_description")
+    
     
