@@ -11,30 +11,30 @@ html
 
     body
       block header
-        !=h.dump(items)
+        //- !=h.dump(items)
         header(class="layout__header")
-          nav(class="layout__navbar--top")
-          nav(class="layout__navbar--sub")
-            ul(class="layout__navlist--sub")  
-              li.layout__navlist__item--sub
-                div.layout__nav__search_block
+          div(class="layout__gif-ads")
+          nav(class="layout__navbar")
+            ul(class="layout__navlist")  
+              li(class="layout__navlist-item")
+                div.layout__navbar-search-block
                   i.fa.fa-search &nbsp;&nbsp;
-                  input.layout__nav__search_input(type="text" placeholder="Search Products, Brands and Categories")
-                button.layout__nav__btn.btn--search search
+                  input.layout__nav-search(type="text" placeholder="Search Products, Brands and Categories")
+                button.layout__btn.btn--search search
               if !user
-                li.layout__navlist__item--sub
+                li(class="layout__navlist-item")
                   a(href="/user/login")
                     if false
                       !=h.icon('user')
                     span login
               else 
-                li.layout__navlist__item--sub: a(href="/user/logout"): span logout
-              li.layout__navlist__item--sub: a: span help
-              li.layout__navlist__item--sub: a
+                li(class="layout__navlist-item"): a(href="/user/logout"): span logout
+              li(class="layout__navlist-item"): a: span help
+              li(class="layout__navlist-item"): a
                 if false
-                  img.layout__nav__cart_image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
+                  img.layout__nav-cart-image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
                 span cart
-                span(id="cart-items-counter")
+                span(id="layout__cart-items-counter")
         
       block messages
       if locals.flashes

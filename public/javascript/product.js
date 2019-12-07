@@ -25,7 +25,7 @@
       this.$add2cart__label = this.$element.find(".add2cart__label"); // Checkbox input for select product size
       this.$backdrop = this.$element.find("#backdrop"); // add to cart warning backdrop
       this.$error_msg = this.$element.find(".error_msg"); // backdrop error message
-      this.$cartItemsCounter = $('body').find("#cart-items-counter"); // Cart Items Counter
+      this.$cartItemsCounter = $('body').find("#layout__cart-items-counter"); // Cart Items Counter
       this.$implicitForm = $('body').find(".implicit-form");
       
       // Method invocation
@@ -55,25 +55,32 @@
     // Adds items to the shopping cart
 		
 		handleAddToCartForm: function() {
+
+      // variable declaration
       var self = this
       var $form = self.$formAddToCart;
       var $product = $form.parent();
-      var price = self._convertString( ($product.data( "price" ) || '') );
       var name =  $product.data( "name" );
       var imgURL = $product.data( "imgurl" );
-      this.$implicitForm.css('display','inline').prepend(`<input type="hidden" name="cart_items" />`);
-
+      var price = self._convertString( ($product.data( "price" ) || '') );
       var total_items = self.storage.getItem(self.total_items);
+
+
+      // initiated functions
+      
+      self.$implicitForm.css('display','inline').prepend(`<input type="hidden" name="cart_items" />`)
       self.$cartItemsCounter.text('(' + (total_items || "") + ')');
+
+      // functions called based on events
 
       self.$backdrop__btnContinue.click(function() {
         self.$backdrop.hide();
       });
 
       self.$backdrop__btnCheckout.click(function() {
+        self.$add2cart__label.find('.add2cart__input').prop('checked', false);
         $(this).parent().submit();
       });
-
 
       $form.submit(function( event ) {
         event.preventDefault();
@@ -131,26 +138,6 @@
       });
     },
 
-    /* Converts a JSON string to a JavaScript object
-		 * @param str String the JSON string
-		 * @returns obj Object the JavaScript object
-		 */
-		
-		_toJSONObject: function( str ) {
-			var obj = JSON.parse( str );
-			return obj;
-    },
-    
-    _containsObject(obj, list) {
-      if (list.some((item) => {
-        return (item.name === obj.name && item.size === obj.size)
-      })) {
-          return true;
-      }
-
-      return false;
-    },
-
     closeBackDrop: function() {
       self = this;
       self.$backdrop__close.click(function() {
@@ -172,6 +159,27 @@
     _toJSONString: function( obj ) {
 			var str = JSON.stringify( obj );
 			return str;
+    },
+
+
+    /* Converts a JSON string to a JavaScript object
+		 * @param str String the JSON string
+		 * @returns obj Object the JavaScript object
+		 */
+		
+		_toJSONObject: function( str ) {
+			var obj = JSON.parse( str );
+			return obj;
+    },
+    
+    _containsObject(obj, list) {
+      if (list.some((item) => {
+        return (item.name === obj.name && item.size === obj.size)
+      })) {
+          return true;
+      }
+
+      return false;
     },
 
     /* Converts a numeric string into a number

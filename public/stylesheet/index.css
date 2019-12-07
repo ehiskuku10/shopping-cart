@@ -5,8 +5,10 @@ html {
   font-size: 62.5%;
 }
 
-body {
+body,html {
+  position: relative;
   min-width: 150rem;
+  height: auto;
   color: rgb(37, 37, 73);
   background-color: rgb(238, 238, 238);
   color: #000;

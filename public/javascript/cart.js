@@ -23,9 +23,11 @@
       this.$currentPrice = this.$element.find('.current-price');
       this.$oldPrice = this.$element.find('.old-price');
       this.$priceDiff = this.$element.find('.price-diff');
+      this.$qty = this.$element.find('.qty');
+      this.$subTotal = this.$element.find('.sub-total');
       
 
-      // Method Invocations and Property declarations
+      // Method Invocations and variable declarations
 
       var self = this;
       var cartCopy = self._toJSONObject(this.storage.getItem(this.cartName));
@@ -33,24 +35,24 @@
 
 
       self.$qtyList.click(function() {
-        if($(this).find('.dropdown-list').hasClass('toggle-list-display')) {
-          $(this).find('.dropdown-list').removeClass('toggle-list-display')
-          .end().find('.figure-head').removeClass('toggle-border');
-          return;
+        if($(this).find('.dropdown-list').hasClass('toggle-list-display')) { //check if dropdown has been selected before.
+          $(this).find('.dropdown-list').removeClass('toggle-list-display')  // if it has, then collapse it
+          .end().find('.figure-head').removeClass('toggle-border'); // and remove the border around the top list element
+          return; // end function
         }
-        self.$qtyList.find('.dropdown-list').removeClass('toggle-list-display');
-        $(this).find('.dropdown-list').toggleClass('toggle-list-display').end()
-        .find('.figure-head').toggleClass('toggle-border');
+        self.$qtyList.find('.dropdown-list').removeClass('toggle-list-display'); // if it hasn't been selected before, firstly collapse all dropdowns. 
+        $(this).find('.dropdown-list').toggleClass('toggle-list-display').end() // make only selected element dropdown.
+        .find('.figure-head').toggleClass('toggle-border'); // and then add border around the top list element
       });
 
 
-      $('.qty').click(function() {
+      self.$qty.click(function() {
         let qty = $(this).data('quantity');
         let price = parseInt($(this).parent().data('price'));
         let index = $(this).parent().data('index');
         $(this).parent().siblings('.figure-head').children('span').text(qty);
         let subTotal = calcSubTotal(qty, price);
-        $('.sub-total').filter(function() {
+        self.$subTotal.filter(function() {
           return ($(this).data('index') === index);
         }).text('$'+subTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
       });

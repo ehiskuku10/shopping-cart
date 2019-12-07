@@ -7,7 +7,7 @@ block links
   link(rel="stylesheet" href="/stylesheet/cart/viewCartnCheckout.css")
 
 block content
-  div(class="row row1")
+  div(class="row1")
     div(class="vcart__heading")
       h3(class="vcart__text" id="numItemsInCart") 
     div(class="vcart__tr vcart__tr--1")
@@ -49,8 +49,13 @@ block content
           span(class="price-diff")
         div(class="vcart__tb vcart__tb--4")
           span(class="sub-total" data-index=`${x++}`) $#{item.price}
-  div(class="row")
-  div(class="row")
+  div(class="row2")
+    div(class="total-cost")
+      span(class="total-key") Total:
+      span(class="total-value") $ 3,000
+    p(class="shipping-info") Shipping fee is not included yet
+  div(class="row3")
+
 
   block scripts
     script(src="/javascript/jquery.min.js")
