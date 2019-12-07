@@ -10,10 +10,6 @@ const productCategorySchema = new Schema({
     category_description: {
         type: String,
         required: [true, 'description is required']
-    },
-    category_image: {
-        type: Object,
-        required: [true, 'image is required for this category']
     }
 })
 

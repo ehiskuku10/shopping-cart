@@ -2,6 +2,7 @@ const Product = require('../models/Product/Product')
 const ProductPrice = require('../models/Product/ProductPrice')
 const ProductCategory = require('../models/Product/ProductCategory')
 const ProductSize = require('../models/Product/ProductSize')
+const ProductBrand = require('../models/Product/ProductBrand')
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -18,20 +19,25 @@ const multerOptions = {
   }
 };
 
-exports.upload = multer(multerOptions).single('image');
+exports.upload = multer(multerOptions).array('image', 3);
 
 exports.resize = async (req, res, next) => {
   // check if there is no new file to resize
-  if (!req.file) {
+  if (!req.files) {
     next(); // skip to the next middleware
     return;
   }
-  const extension = req.file.mimetype.split('/')[1];
-  req.body.image = `${uuid.v4()}.${extension}`;
-  // now we resize
-  const image = await jimp.read(req.file.buffer);
-  await image.resize(800, jimp.AUTO);
-  await image.write(`./public/uploads/${req.body.image}`);
+  req.body.image = [];
+  for(var i=0; i<req.files.length; i++) {
+    const extension = req.files[i].mimetype.split('/')[1];
+  
+    req.body.image[i] = `${uuid.v4()}.${extension}`;
+    // let's resize the image
+    const image = await jimp.read(req.files[i].buffer);
+    await image.resize(800, jimp.AUTO);
+    await image.write(`./public/uploads/${req.body.image[i]}`);
+  }
+  console.log(req.body.image)
   // once we have written the photo to our filesystem, keep going!
   next();
 };
@@ -39,11 +45,13 @@ exports.resize = async (req, res, next) => {
 exports.addProduct = async (req, res) => {
   const sizesPromise = ProductSize.find()
   const categoriesPromise = ProductCategory.find()
-  const [sizes, categories] = await Promise.all([sizesPromise, categoriesPromise])
+  const brandsPromise = ProductBrand.find()
+  const [sizes, categories, brands] = await Promise.all([sizesPromise, categoriesPromise, brandsPromise])
   res.render('admin/editProduct', { 
     title: 'Add Product',
     sizes,
-    categories
+    categories,
+    brands
   });
 };
 
@@ -57,11 +65,12 @@ exports.createProduct = async (req, res) => {
 
   const productCount = await Product.countDocuments()
   const product = await new Product({
-    product_title: req.body.product_title,
     short_description: req.body.short_description,
     description: req.body.description,
     product_image: req.body.image,
     tags: req.body.tags,
+    gender: !!req.body.gender,
+    brand: req.body.brand,
     product_price: productPrice._id,
     product_size: req.body.size === "none" ? "5dce600616301e226cf2eaaa" : req.body.size,
     category: req.body.category,
@@ -76,7 +85,7 @@ exports.createProduct = async (req, res) => {
   //   product: product._id
   // }).save()
   
-  req.flash('success', `Successfully Created ${product.product_title}`);
+  req.flash('success', `Successfully Created Product`);
   res.redirect('back')
 };
 

@@ -1,7 +1,9 @@
-extend dashboard
+extends ./dashboard
 
 include ../mixins/_productForm
 
 block item
-  +productForm()
+  .dashboard__form
+    h1 Add New Product
+    +productForm()
   

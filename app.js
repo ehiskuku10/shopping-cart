@@ -13,6 +13,7 @@ const index = require('./routes/index')
 const user = require('./routes/user')
 const product = require('./routes/product/product')
 const admin = require('./routes/admin')
+const cart = require('./routes/cart')
 const helpers = require('./helpers')
 const errorHandlers = require('./handlers/errorHandlers')
 require('./handlers/passport')
@@ -73,6 +74,7 @@ app.use('/home', index);
 app.use('/user', user);
 app.use('/product', product);
 app.use('/admin', admin);
+app.use('/cart', cart);
 
 // If that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);

@@ -1,9 +1,14 @@
 extends ../layout
 
+block links
+  link(rel="stylesheet" href="/stylesheet/index.css")
+  link(rel="stylesheet" href="/stylesheet/layout/layout.css")
+  link(rel="stylesheet" href="/stylesheet/adminPanel/adminPanel.css")
+
 include ../mixins/_sideBar
 
 block content
-  .dashboard-container 
+  .dashboard__container 
     +sideBar()
     block item
-      .dashboard-content
+      .dashboard__content

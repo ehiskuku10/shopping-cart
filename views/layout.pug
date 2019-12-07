@@ -7,11 +7,11 @@ html
       link(rel="stylesheet" href="/stylesheet/svg.css")
       link(rel="stylesheet" href="/stylesheet/index.css")
       link(rel="stylesheet" href="/stylesheet/layout/layout.css")
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+      link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css")
 
-    body 
+    body
       block header
-        //- !=h.dump(topSellingItems)
+        !=h.dump(items)
         header(class="layout__header")
           nav(class="layout__navbar--top")
           nav(class="layout__navbar--sub")
@@ -34,6 +34,7 @@ html
                 if false
                   img.layout__nav__cart_image(src="https://img.icons8.com/nolan/64/000000/shopping-cart.png")
                 span cart
+                span(id="cart-items-counter")
         
       block messages
       if locals.flashes
@@ -48,3 +49,8 @@ html
 
       .content
         block content
+
+
+      
+      
+      

@@ -4,11 +4,6 @@ mongoose.Promise = global.Promise;
 
 
 const productSchema = new Schema({
-  product_title: {
-    type: String,
-    required: [true, 'product title is required'],
-    unique: true
-  },
   short_description: {
     type: String,
     required: [true, 'short description is required']
@@ -17,6 +12,17 @@ const productSchema = new Schema({
     type: String,
     required: [true, 'description is required']
   },
+  gender: {
+    type: Boolean,
+    required: [true, "Must specify a gender"]
+  },
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, 'You have to specify a brand']
+  },
+  colors:[{
+    type: String
+  }],
   product_price: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProductPrice"
@@ -27,12 +33,7 @@ const productSchema = new Schema({
   },
   forecast_no: {
     type: Number,
-    required: "A forecast number is required",
     unique: true
-  },
-  brand: {
-    type: String,
-    required: [true, 'You have to specify a brand']
   },
   product_image: [{
     type: String,

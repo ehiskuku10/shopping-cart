@@ -1,17 +1,51 @@
 extends layout
 
+block links
+  link(rel="stylesheet" href="/stylesheet/index.css")
+  link(rel="stylesheet" href="/stylesheet/layout/layout.css")
+  link(rel="stylesheet" href="/stylesheet/product/product.css")
+
 block content
-  main
+  main(id="site")
+    div(id="backdrop")  
+      div(id="backdrop__info1")
+        a(class="backdrop__close")
+          !=h.icon('error')
+        h3(id="backdrop__heading") Added to Cart  
+        p #{product.short_description} was added to cart
+        div(class="backdrop__btn-block")
+          a(class="backdrop__btn-continue") Continue Shopping
+          form(class="implicit-form" method="post" action="/cart/view-cart-n-checkout")
+            a(class="backdrop__btn-checkout") View Cart 'n' Checkout
+      div(id="backdrop__info2")
+        a(class="backdrop__close")
+          !=h.icon('error')
+        h3(id="backdrop__heading") Please Select A Variation
+        div(class="backdrop__form-cover" data-imgurl= `/uploads/${product.product_image[0]}` data-name=`${product.short_description}` data-price=`${price}`)
+          form(class="backdrop__form add2cart__form")
+            div(class="backdrop__input-block")
+              each size in sizes
+                label(class="add2cart__label" for=size.label data-size=size.label) #{size.label}
+                  input(type="radio" id=size.label name="size" data-category=size.category value=size.label class="add2cart__input")
+              p(class="error_msg")
+              div(class="prc backdrop__prc")
+                span(class="new-prc") $ #{price}
+                div(class="old-prc-pct backdrop__old-pct")
+                  span(class="old-prc backdrop__old-prc") $ #{oddprice}
+                  span(class="pct") -#{product.product_price.product_discount}%
+              div(class="add2cart__btn-block")
+                !=h.icon('cart-sub')
+                input(class="add2cart__btn backdrop__btn" value="add to cart" type="submit") 
     div(class="product__row--1")
       div(class="product__bcbs")
         each tag in product.tags
           a(class="product__cbs" href="/product/getTags/"+tag) #{tag} &nbsp;
-        a(class="product__bcbs_title") #{product.product_title}
+        a(class="product__bcbs_title") #{product.short_description}
       div(class="product__content__row--sub1")
         div(class="product__content__column--1")
           div(class="imgshr")
             div(class="img")
-              img(src=`/uploads/${product.product_image}`)
+              img(src=`/uploads/${product.product_image[0]}`)
             div(class="shr")
               h3 share this product
               button(class="btn-fb")
@@ -28,14 +62,21 @@ block content
                 span(class="str-rtn")
                 a(href="#") 'reserved for product rating'
               div(class="prc")
-                span(class="new-prc") # #{product.product_price.current_price}
+                span(class="new-prc") $ #{price}
                 div(class="old-prc-pct")
-                  span(class="old-prc") # 1000000
+                  span(class="old-prc") $ #{oddprice}
                   span(class="pct") -#{product.product_price.product_discount}%
-            div(class="add2cart")
-              form()
-                div(class="add2cart-header")
+            div(class="add2cart" data-imgURL= `/uploads/${product.product_image[0]}` data-name=`${product.short_description}` data-price=`${price}`)
+              form(id="add2cart__form" class="add2cart__form" action="/cart/add-to-cart" method="post")
+                div(class="add2cart__header")
                   span select variation
+                div(class="add2cart__input-block")
+                  each size in sizes
+                    label(class="add2cart__label" for=size.label) #{size.label}
+                      input(type="radio" id=size.label name="size" value=size.label class="add2cart__input")
+                  div(class="add2cart__btn-block")
+                    !=h.icon('cart-sub')
+                    input(class="add2cart__btn" value="add to cart" type="submit") 
             section(class="promo")
               h3 promotions
         div(class="product__content__column--2")
@@ -73,6 +114,6 @@ block content
             div(class="prds-header")
               h3 product details
 
-
-
-      
+  block scripts
+    script(src="/javascript/jquery.min.js")
+    script(src="/javascript/product.js")

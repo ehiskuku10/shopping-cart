@@ -1,12 +1,16 @@
 mixin productForm(product = {})
   form(enctype="multipart/form-data" method="post" action="add")
-    input(type="text" placeholder="Product title" name="product_title")
     input(type="text" placeholder="Short description" name="short_description")
     input(type="text" placeholder="Product description" name="description")
-    input(type="file" name="image" accept="image/gif, image/png, image/jpeg")
     input(type="number" placeholder="Product discount" name="discount")
-    input(type="number" placeholder="Product price" name="current_price")
+    span(class="price")
+      span(class="price__icon") $
+      input(class="price__input" type="number" placeholder="Product price" name="current_price")
+    select(name="brand")
+      each brand in brands
+        option(value=`${brand._id}`) #{brand.label}
     input(type="text" placeholder="Total Number Of Products in Stock" name="product_in_stock_count")
+    input(type="file" name="image" accept="image/gif, image/png, image/jpeg" multiple)
     - const choices = ["Men's wear", "Women's wear", "fancy", "corporate", "affordable", "kiddies", "trending"]
     - const tags = product.tags || []
     ul.tag
@@ -18,17 +22,12 @@ mixin productForm(product = {})
       each category in categories
         option(value=`${category._id}`) #{category.category_title}
     select(name="size")
-      option(value=`none`) Nill
+      option(value=`none`) Nil
       each size in sizes
         option(value=`${size._id}`) #{size.label}
-    input(type="submit" value="Add")
-
-
-    //-  - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
-    //- - const tags = store.tags || []
-    //- ul.tags
-    //-   each choice in choices
-    //-     .tag.tag__choice
-    //-       input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
-    //-       label(for=choice) #{choice}
-    //- input(type="submit" value="Save →" class="button")
+    label(for="male") Male 
+      input(type="radio" id="male" name="gender" value=1)
+    label(for="female") Female
+      input(type="radio" id="female" name="gender" value=0) 
+    br
+    input(class="dashboard__submit" type="submit" value="Add")

@@ -1,11 +1,17 @@
 const mongoose = require('mongoose')
 const Product = mongoose.model('Product')
+const ProductSize = mongoose.model('ProductSize')
 const User = mongoose.model('User')
 
 exports.showCase = async (req, res) => {
 
-  const topSellingItems = await Product
-    .find()
+  // const topSellingItems = await Product
+  //   .find()
+  //   .limit(5)
+  //   .sort({items_sold: 'desc'})
+
+  const menShoes = await Product
+    .find({category: "5dce600616301e226cf2eb49"})
     .limit(5)
     .sort({items_sold: 'desc'})
   
@@ -24,7 +30,7 @@ exports.showCase = async (req, res) => {
 
   res.render('home', {
     title: "Home",
-    topSellingItems,
+    menShoes,
     dailyDeals
   })
 }
@@ -32,9 +38,17 @@ exports.showCase = async (req, res) => {
 exports.getOneProduct = async (req, res) => {
   const product = await Product.findOne({
     _id: req.params.id
-  }, {_id: 0}).populate('product_price')
+  }, {_id: 0}).populate('product_price product_size')
+
+  const sizes = await ProductSize.find({
+    category: product.product_size.category
+  })
+
   return res.render('product', {
     title: product.short_description,
-    product
+    product,
+    price: product.product_price.current_price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"),
+    oddprice: '1000000'.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"),
+    sizes
   })
 }

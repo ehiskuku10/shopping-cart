@@ -1,6 +1,8 @@
 [
-  {"_id": "5dce600616301e226cf2eb47", "category_title": "dresses", "category_description": "This is a collection of dresses", "category_image": "1234.jpg"},
-  {"_id": "5dce600616301e226cf2eb48", "category_title": "foot wears", "category_description": "This is a collection of shoes", "category_image": "1234.jpg"},
-  {"_id": "5dce600616301e226cf2eb49", "category_title": "bags", "category_description": "This is a collection of bags", "category_image": "1234.jpg"},
-  {"_id": "5dce600616301e226cf2eb4a", "category_title": "accessories", "category_description": "This is a collection of accessories", "category_image": "1234.jpg"}
+  {"_id": "5dce600616301e226cf2eb47", "category_title": "men's clothing", "category_description": "This is a collection of clothes for men"},
+  {"_id": "5dce600616301e226cf2eb48", "category_title": "women's clothing", "category_description": "This is a collection of clothes for women"}
+  {"_id": "5dce600616301e226cf2eb49", "category_title": "men's foot wear", "category_description": "This is a collection of foot wears for men"},
+  {"_id": "5dce600616301e226cf2eb4a", "category_title": "women's foot wear", "category_description": "This is a collection of foot wears for women"},
+  {"_id": "5ddac77c25a4ed0d14d4b69a", "category_title": "men's accessory", "category_description": "This is a collection of accessories for men"},
+  {"_id": "5ddac85ab1958c0d145d48fb", "category_title": "women's accessory", "category_description": "This is a collection of accessories for women"}
 ]
