@@ -18,7 +18,7 @@
 
       // DOM Elements
       this.$numItemsInCart = this.$element.find('#numItemsInCart');
-      this.$cartItemsCounter = this.$element.find('#cart-items-counter');
+      this.$cartItemsCounter = this.$element.find('#layout__cart-items-counter');
       this.$qtyList = this.$element.find('.qty-list');
       this.$currentPrice = this.$element.find('.current-price');
       this.$oldPrice = this.$element.find('.old-price');
@@ -55,12 +55,25 @@
         self.$subTotal.filter(function() {
           return ($(this).data('index') === index);
         }).text('$'+subTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+
+        let total = 0;
+        let qty_sum = 0;
+        self.$subTotal.each(function(index, elem) {
+          total+= parseFloat($(elem).text().replace(/[^\d\.]/g,''));
+        })
+        $(".total-value").text(`$ ${total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}`);  
+
+        $('.figure-head > span').each(function(index, elem) {
+          qty_sum+= Number($(elem).text());
+        })
+        self.$numItemsInCart.text(`Cart (${qty_sum} items)`);
+        $('#layout__cart-items-counter').text(`(${qty_sum})`);
       });
       
 
       var Titems = self._convertString(this.storage.getItem(this.total_items));
       self.$numItemsInCart.text(`Cart (${Titems} items)`);
-      self.$cartItemsCounter.text(`(${Titems})`);
+      self.$cartItemsCounter.text(Titems ? `(${Titems})` : "");
 
       
       function calcSubTotal(qty, price) {

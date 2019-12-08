@@ -108,11 +108,12 @@
             var result = self._containsObject({name, price, size}, cartCopy.items);
             if(result) {
               alert('already added to cart');
+              return;
             } else {
               var total_items = self.storage.getItem(self.total_items);
               total_items++;
               self.storage.setItem(self.total_items, total_items);
-              self.$cartItemsCounter.text('(' + total_items + ')');
+              self.$cartItemsCounter.text(total_items ? `(${total_items})` : "");
               
 
               cartCopy.items.push({
@@ -142,6 +143,9 @@
       self = this;
       self.$backdrop__close.click(function() {
         $(this).parent().parent().hide()
+        $('body').css({
+          overflow: 'visible'
+        })
       })
     },
     

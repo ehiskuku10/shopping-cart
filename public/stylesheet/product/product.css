@@ -354,7 +354,7 @@ svg.cart-btn-cover {
   left: 0;
   display: none;
   z-index: 1000;
-  width: 100vw;
+  width: 100%;
   -webkit-backdrop-filter: blur(1rem);
   backdrop-filter: blur(1rem);
   height: 100vh;

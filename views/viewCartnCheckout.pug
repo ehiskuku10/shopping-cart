@@ -31,9 +31,9 @@ block content
                 img(src="https://upload.wikimedia.org/wikipedia/commons/8/86/A_perfect_SVG_heart.svg")
                 span move to saved items
               a(href="#") 
-                img(src="https://upload.wikimedia.org/wikipedia/commons/8/86/A_perfect_SVG_heart.svg")
+                img(src="/images/trash-can.png")
                 span remove
-        div(class="vcart__tb vcart__tb--2 size")
+        div(class="vcart__tb vcart__tb--2")
           div(class="qty__toggle")
             ul(class="qty-list")
               li(class="qty-list__item figure-head") 
@@ -52,9 +52,12 @@ block content
   div(class="row2")
     div(class="total-cost")
       span(class="total-key") Total:
-      span(class="total-value") $ 3,000
+      span(class="total-value") 
     p(class="shipping-info") Shipping fee is not included yet
   div(class="row3")
+    div(class="summary-footer") 
+      a(href="/home" id="vcart-continue") continue shopping
+      a(href="#" id="vcart-checkout") proceed to checkout
 
 
   block scripts
