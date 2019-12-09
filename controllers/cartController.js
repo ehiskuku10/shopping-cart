@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
+const User = mongoose.model("User");
+const Cart = mongoose.model("Cart");
 
 exports.viewCartnCheckout = (req, res) => {
   const items = JSON.parse(decodeURIComponent(req.body.cart_items))
@@ -11,17 +13,31 @@ exports.viewCartnCheckout = (req, res) => {
   });
 };
 
-exports.viewCheckout = async (req, res) => {
-  let itemsInCart = req.body.items_in_cart;
-  let x = [];
+exports.calcSubTotal = async (req, res) => {
+  
+  let itemsInCart = await JSON.parse(req.body.items_in_cart);
+
   for(var i=0; i<itemsInCart.length; i++) {
     let product = await Product.findOne({
       short_description: itemsInCart[i].name
     }).populate('product_price');
-    x.push(product);
+    itemsInCart[i].subtotal = parseInt(itemsInCart[i].qty) * parseInt(product.product_price.current_price);
+    itemsInCart[i].product = product._id;
   }
 
-  res.send({
-    say: x
+  const user = await User.findOne({
+    _id: req.user.id
   });
+
+  if(user) {
+    const cart = await new Cart({
+      user_id: user._id,
+      user_cart: itemsInCart
+    });
+
+    await cart.save();
+    res.render('checkout', {
+      cart
+    });
+  }
 };

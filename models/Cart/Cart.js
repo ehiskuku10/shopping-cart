@@ -1,34 +1,35 @@
-module.exports = function Cart(oldCart) {
-    this.cartItems = oldCart.cartItems || {}
-    this.totalQty =  oldCart.totalQty || 0
-    this.totalPrice = oldCart.totalPrice || 0
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+mongoose.Promise = global.Promise;
 
-    this.add = function(item, item_id){
-        var storedItem = this.cartItems[item_id]
-        console.log('meeee')
-        if (!storedItem){
-            storedItem = this.cartItems[item_id] = {item: item, itemQty: 0, itemPrice: 0}
-        }
-        storedItem.itemQty += 1
-        storedItem.itemPrice = storedItem.item.product_price_id.product_price * storedItem.itemQty
-        this.totalPrice += storedItem.item.product_price_id.product_price
-        this.totalQty++;
+const cartSchema = new Schema({
+  user_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: "You must supply a buyer ID"
+  },
+  user_cart: [{
+    product: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Product',
+      required: 'You must supply a product ID'
+    },
+    name: {
+      type: String,
+      required: "Item name is required",
+    },
+    size: {
+      type: String
+    },
+    qty: {
+      type: Number,
+      required: "You must specify a quantity"
+    },
+    subtotal: {
+      type: Number,
+      required: "You supply a subtotal"
     }
+  }]
+});
 
-    this.remove = function(item_id){
-        var storedItem = this.cartItems[item_id]
-        console.log('storedItem >> ',storedItem)
-        this.totalPrice -= storedItem.itemPrice
-        this.totalQty -= storedItem.itemQty
-        delete this.cartItems[item_id]
-        console.log('cartitems >> ',this.cartItems)
-    }
-
-    this.generateArray = function(){
-        var cartArray = []
-        for (const id in this.cartItems) {
-            cartArray.push(this.cartItems[id])
-        }
-        return cartArray
-    }
-}
+module.exports = mongoose.model('Cart', cartSchema);

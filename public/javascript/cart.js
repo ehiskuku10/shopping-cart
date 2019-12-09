@@ -38,7 +38,7 @@
       
 
 
-      self.$vCartCheckout.click(function() {
+      self.$vCartCheckout.click(function(e) {
         var items_in_cart = [];
         self.$vCartTr.each(function(index, elem) {
           if(index > 0) {
@@ -48,11 +48,9 @@
             items_in_cart.push({name, size, qty});
           }
         });
-        $.post('/cart/view-checkout', {
-          items_in_cart
-        }, function(data, status) {
-          console.log(data);
-        });
+        $(`<form method='post' action='/cart/calculate-subtotal'>
+            <input type='hidden' name='items_in_cart' value='${JSON.stringify(items_in_cart)}'/>
+           </form>`).appendTo('body').end().submit();
       });
 
       function calcSubTotal(qty, price) {

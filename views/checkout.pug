@@ -1,0 +1,30 @@
+extends layout
+
+block links
+  link(rel="stylesheet" href="/stylesheet/svg.css")
+  link(rel="stylesheet" href="/stylesheet/index.css")
+  link(rel="stylesheet" href="/stylesheet/layout/layout.css")
+  link(rel="stylesheet" href="/stylesheet/checkout/checkout.css")
+
+block content
+  main.container
+    div(class="checkout-form")
+      div(class="address-form__block modal")
+        header(class="address-form__header")
+          span: !=h.icon('check-solid')
+          span(class="address-form__title title") 1. address details
+        div(class="address-form__body")
+          form(class="address-form")
+            div(class="input-block field-spacing")
+              label first name
+              input(type="text" name="firstname" placeholder="Paul")
+            div(class="input-block")
+              label last name
+              input(type="text" name="lastname" placeholder="Musa")
+            div(class="input-block full-width")
+              label mobile phone number
+              div(class="phone-prefix") +234
+              input(type="text" name="lastname" placeholder="Musa" id="phone-input")
+
+    div(class="order-summary modal")
+

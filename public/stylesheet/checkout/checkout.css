@@ -1,0 +1,109 @@
+main.container {
+  height: auto;
+  margin: 4rem auto;
+  width: 90rem;
+  justify-content: space-between;
+  display: flex;
+}
+
+.checkout-form {
+  width: 68.5%;
+}
+
+.modal {
+  background-color: #fff;
+  border-radius: .4rem;
+}
+
+.order-summary{
+  width: 30%;
+  height: 33.2rem;
+}
+
+.address-form__block {
+  height: auto;
+}
+
+.address-form__header {
+  height: 4rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.address-form__body {
+  height: 96rem;
+  padding: 2.2rem 4rem 2rem;
+}
+
+.check-svg {
+  background: #e2e2e2;
+  height: 2rem;
+  width: 1.9rem;
+  border-radius: 50%;
+  position: relative;
+  top: 1rem;
+  left: 1rem;
+}
+
+.title {
+  text-transform: uppercase;
+  position: relative;
+  left: 3rem;
+  top: .5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.input-block {
+  display: inline-block;
+  width: 48%;
+}
+
+.input-block:nth-child(1) {
+  margin-bottom: 2rem;
+}
+
+.field-spacing {
+  margin-right: 4%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.phone-prefix {
+  width: 11%;
+  border: 1px solid rgb(187, 187, 187);
+  padding: .76rem;
+  font-size: 1.4rem;
+  display: inline-block;
+  font-weight: 500;
+  margin-right: 1.5%;
+}
+
+#phone-input {
+  width: 87.5%;
+  position: relative;
+  top: -.2rem;
+}
+
+.input-block label {
+  display: block;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  margin-bottom: .8rem;
+  font-weight: 400;
+  color: #686868;
+}
+
+.input-block label::after {
+  content: '*';
+}
+
+.input-block input {
+  padding: .8rem;
+  width: 100%;
+}
+
+.input-block input::placeholder{
+  color: rgb(187, 187, 187);
+}

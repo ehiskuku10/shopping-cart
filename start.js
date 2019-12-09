@@ -11,6 +11,7 @@ require('./db/connection')
 // import all of our models
 require('./models/User')
 require('./models/Product/Product')
+require('./models/Cart/Cart')
 require('./models/Product/ProductSize')
 
 // start the application
