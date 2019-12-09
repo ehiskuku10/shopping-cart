@@ -24,8 +24,8 @@ block content
             img(class="vcart__img" src=`${item.imgURL}`)
           div(class="vcart__item-details")
             div(class="vcart__item-seller") [Seller Info here]
-            div(class="vcart__item-name") #{item.name}
-            div(class="vcart__item-size") #{item.size}
+            div(class="vcart__item-name" data-name=`${item.name}`) #{item.name}
+            div(class="vcart__item-size" data-size=`${item.size}`) #{item.size}
             div(class="vcart__item-actions")
               a(href="#") 
                 img(src="https://upload.wikimedia.org/wikipedia/commons/8/86/A_perfect_SVG_heart.svg")
@@ -37,7 +37,7 @@ block content
           div(class="qty__toggle")
             ul(class="qty-list")
               li(class="qty-list__item figure-head") 
-                span 1
+                span #{item.quantity || 1}
                 img(id="caret-img" src="/images/triangular-arrow-pointing-down.png")
               - const quantities = [1,2,3,4,5,6,7,8,9,10]
               ul(class="dropdown-list" data-price=item.price data-index=`${x}`)
@@ -48,7 +48,7 @@ block content
           span(class="old-price")
           span(class="price-diff")
         div(class="vcart__tb vcart__tb--4")
-          span(class="sub-total" data-index=`${x++}`) $#{item.price}
+          span(class="sub-total" data-index=`${x++}`) $#{item.subTotal || item.price}
   div(class="row2")
     div(class="total-cost")
       span(class="total-key") Total:

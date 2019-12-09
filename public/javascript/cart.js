@@ -25,6 +25,8 @@
       this.$priceDiff = this.$element.find('.price-diff');
       this.$qty = this.$element.find('.qty');
       this.$subTotal = this.$element.find('.sub-total');
+      this.$vCartCheckout = this.$element.find('#vcart-checkout');
+      this.$vCartTr = this.$element.find('.vcart__tr');
       
 
       // Method Invocations and variable declarations
@@ -32,8 +34,32 @@
       var self = this;
       var cartCopy = self._toJSONObject(this.storage.getItem(this.cartName));
       var items = cartCopy.items;
+      var Titems = self._convertString(this.storage.getItem(this.total_items));
+      
 
 
+      self.$vCartCheckout.click(function() {
+        var items_in_cart = [];
+        self.$vCartTr.each(function(index, elem) {
+          if(index > 0) {
+            var name = $(elem).find(".vcart__item-name").data("name");
+            var size = $(elem).find(".vcart__item-size").data("size");
+            var qty = $(elem).find('.figure-head').children('span').text();
+            items_in_cart.push({name, size, qty});
+          }
+        });
+        $.post('/cart/view-checkout', {
+          items_in_cart
+        }, function(data, status) {
+          console.log(data);
+        });
+      });
+
+      function calcSubTotal(qty, price) {
+        let subTotal = qty * price;
+        return subTotal;
+      }
+      
       self.$qtyList.click(function() {
         if($(this).find('.dropdown-list').hasClass('toggle-list-display')) { //check if dropdown has been selected before.
           $(this).find('.dropdown-list').removeClass('toggle-list-display')  // if it has, then collapse it
@@ -44,7 +70,6 @@
         $(this).find('.dropdown-list').toggleClass('toggle-list-display').end() // make only selected element dropdown.
         .find('.figure-head').toggleClass('toggle-border'); // and then add border around the top list element
       });
-
 
       self.$qty.click(function() {
         let qty = $(this).data('quantity');
@@ -69,17 +94,6 @@
         self.$numItemsInCart.text(`Cart (${qty_sum} items)`);
         $('#layout__cart-items-counter').text(`(${qty_sum})`);
       });
-      
-
-      var Titems = self._convertString(this.storage.getItem(this.total_items));
-      self.$numItemsInCart.text(`Cart (${Titems} items)`);
-      self.$cartItemsCounter.text(Titems ? `(${Titems})` : "");
-
-      
-      function calcSubTotal(qty, price) {
-        let subTotal = qty * price;
-        return subTotal;
-      }
 
       self.$currentPrice.css({
         fontSize: "1.5rem",
@@ -98,7 +112,9 @@
         color: "#7ed321",
         fontSize: "1.2rem",
         fontWeight: 500
-      })
+      });
+      self.$numItemsInCart.text(`Cart (${Titems} items)`);
+      self.$cartItemsCounter.text(Titems ? `(${Titems})` : "");
 
     },
 
