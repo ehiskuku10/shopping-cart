@@ -2,6 +2,7 @@ extends layout
 
 block links
   link(rel="stylesheet" href="/stylesheet/svg.css")
+  link(href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
   link(rel="stylesheet" href="/stylesheet/index.css")
   link(rel="stylesheet" href="/stylesheet/layout/layout.css")
   link(rel="stylesheet" href="/stylesheet/checkout/checkout.css")
@@ -9,11 +10,12 @@ block links
 block content
   main.container
     div(class="checkout-form")
+
       div(class="address-form__block modal")
         header(class="address-form__header")
           span: !=h.icon('check-solid')
           span(class="address-form__title title") 1. address details
-        div(class="address-form__body")
+        div(class="address-form__body body")
           form(class="address-form")
             div(class="input-block field-spacing")
               label first name
@@ -21,10 +23,150 @@ block content
             div(class="input-block")
               label last name
               input(type="text" name="lastname" placeholder="Musa")
-            div(class="input-block full-width")
+            div(class="input-block text-area")
               label mobile phone number
               div(class="phone-prefix") +234
-              input(type="text" name="lastname" placeholder="Musa" id="phone-input")
+              input(type="text" name="phone" placeholder="Phone" id="phone-input")
+            div(class="add-field")
+              i(class="fa fa-plus-circle")
+              span Add a second phone number
+            div(class="input-block text-area")
+              label address
+              textarea(class="long-field" name="lastname" placeholder="Street Name / Building / Apartment No. / Floor")
+            div(class="add-field")
+              i(class="fa fa-plus-circle")
+              span Add more details
+            div(class="input-block" id="state-and-region")
+              label State/Region
+              - const states = ["Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Federal Capital Territory", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfarawa"]
+              select(name="state_and_region")
+                option(value selected="selected" class="figure-head") Please select...
+                each state in states
+                  option(value) #{state}
+            div(class="input-block" id="city")
+              label City
+              - const cities = ["Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Federal Capital Territory", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfarawa"]
+              select(name="state_and_region")
+                option(value selected="selected" class="figure-head") Please select...
+                each city in cities
+                  option(value) #{city}
+            div(class="input-block" id="btn")
+              label Required
+              input(type="submit" value="save and continue")
+
+      div(class="delivery-form__block modal")
+        header(class="delivery-form__header")
+          span: !=h.icon('check-solid')
+          span(class="delivery-form__title title") 2. delivery method
+        div(class="delivery-form__body body")
+          h3(id="delivery-question") How do you want your order delivered ?
+          form(class="delivery-form")
+            input(type="radio" name="delivery" id="door_delivery")
+            label(for="door_delivery" class="delivery__info") door delivery
+            
+            div(class="delivery__block")
+              p(id="method_sub-title") Delivered between 
+                span Wednesday 11 Dec 
+                |and 
+                span Monday 6 Jan 
+                |for 
+                span ₦ 1,200
+
+                div(class="delivery-date-info")
+                  div(class="icon-block")
+                    i(class="fa fa-exclamation-triangle")
+                  div(class="delivery-date-text")
+                    div Large items (e.g A.C) may arrive 2 business days later than others.
+                    div Large items (e.g A.C) may arrive 2 business days later than others. 
+            hr(class="section-separator") 
+            input(type="radio" name="delivery" id="pickup")
+            label(for="pickup" class="delivery__info unselect") pickup station
+            
+            div(class="delivery__block")
+              p(id="method_sub-title") Ready for pick up between 
+                span Friday 13 Dec 
+                |and 
+                span Tuesday 14 Jan
+              a select pickup station
+            
+            div(class="shipment-details modal")
+              header(class="shipment-details__header") shipment details
+              div(class="shipment-details__body") 
+                each x in [1,2]
+                  div(class="shipment-details__section")
+                    div(class="shipment-details__subheader") Shipment #{x} of #{[1,2].length}
+                    div
+                      span(class="amt") 1x
+                      |Men's Colourful Sneakers / Sports Shoes - Red / Multicolor
+                    div Delivered between 
+                      span(class="range") Friday 13 Dec 
+                      |and 
+                      span(class="range") Tuesday 17 Dec
+                  hr(class="section-separator" style="margin-top: 2rem;")
+            
+            div(class="shipping-costing__block")
+              div
+                span Subtotal
+                span(class="pull-right") ₦ 45,554
+              div
+                span Shipping Amount
+                span(class="pull-right") ₦ 45,554
+              div
+                span(class="flight")
+                |Customs Fee
+                span(class="pull-right") ₦ 45,554
+              div
+                span: i
+                |Total
+                span(class="pull-right") ₦ 45,554
+              div(id="hint") You will be able to add a voucher in the next step
+              div(class="input-block" id="btn")
+                input(type="submit" value="proceed to next step")
+
+      div(class="payment-form__block modal")
+        header(class="payment-form__header")
+          span: !=h.icon('check-solid')
+          span(class="payment-form__title title") 3. payment method
+        div(class="payment-form__body body")
+          h3(id="payment-question") How do you pay for your order ? Easy!
+          form(class="payment-form")
+            div
+              input(type="radio" name="payment" id="door_delivery")
+              label(for="door_delivery" class="delivery__info") Payment with interswitch webpay
+              p(class="info") We are going to redirect you to our secured online platform, where you will be able to pay with your Naira Mastercard, Visa or Verve cards.
+                | &nbsp;Please have your phone ready for SMS token to complete payment.
+                | Do not hesitate to call us on 070XXXXXXXX if you have any question.
+            
+            
+            div(class="shipping-costing__block")
+              div
+                span Subtotal
+                span(class="pull-right") ₦ 45,554
+              div
+                span Shipping Amount
+                span(class="pull-right") ₦ 45,554
+              div
+                span(class="flight")
+                |Customs Fee
+                span(class="pull-right") ₦ 45,554
+              div
+                span: i
+                |Total
+                span(class="pull-right") ₦ 45,554
+              div(class="input-block" id="btn")
+                input(type="submit" value="proceed to next step")
 
     div(class="order-summary modal")
+      header(class="order-summary__header")
+        span(class="order-summary__title title") Your Order (X items)
+      div(class="order-summary__body body")
+        div(class="order")
+          div(class="img__block")
+            img(src="/images/trash-can.png" alt="Item Purchased")
+          div(class="item__info")
+            span(class="item__name") PS4 FIFA 20 Standard Edition - PlayStation 4 
+            span(class="item__price") ₦ 16,000
+            div(class="item__qty")
+              span Qty:
+              |X
 

@@ -13,24 +13,22 @@ main.container {
 .modal {
   background-color: #fff;
   border-radius: .4rem;
+  margin-bottom: 1rem;
+  height: auto;
 }
 
 .order-summary{
   width: 30%;
-  height: 33.2rem;
+  height: fit-content;
 }
 
-.address-form__block {
-  height: auto;
-}
-
-.address-form__header {
+.modal header {
   height: 4rem;
   border-bottom: 1px solid #f0f0f0;
 }
 
-.address-form__body {
-  height: 96rem;
+.body {
+  height: inherit;
   padding: 2.2rem 4rem 2rem;
 }
 
@@ -66,8 +64,9 @@ main.container {
   margin-right: 4%;
 }
 
-.full-width {
+.text-area {
   width: 100%;
+  margin-bottom: .4rem;
 }
 
 .phone-prefix {
@@ -80,10 +79,31 @@ main.container {
   margin-right: 1.5%;
 }
 
+.fa-plus-circle {
+  font-size: 1.3rem;
+  margin-right: .8rem;
+}
+
 #phone-input {
   width: 87.5%;
   position: relative;
+  border: 1px solid #cacaca;
   top: -.2rem;
+}
+
+.add-field {
+  text-align: end;
+  font-size: 1.2rem;
+  color: #5a5a5a;
+  margin-bottom: 2rem;
+}
+
+textarea.long-field {
+  resize: none;
+  min-height: 10rem;
+  border: 1px solid #cacaca;
+  padding: .8rem;
+  width: 100%;
 }
 
 .input-block label {
@@ -101,9 +121,284 @@ main.container {
 
 .input-block input {
   padding: .8rem;
+  border: 1px solid #cacaca;
   width: 100%;
 }
 
-.input-block input::placeholder{
+.input-block input::placeholder,
+textarea.long-field::placeholder{
   color: rgb(187, 187, 187);
+}
+
+#state-and-region, #city, #btn {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+#state-and-region select,
+#city select {
+  width: 100%;
+  padding: 1rem;
+}
+
+#btn {
+  margin: 0;
+}
+#btn input{
+  border: 1px solid #cacaca;
+  background-color: rgb(52, 137, 158);
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 1.1rem;
+  margin-top: 2rem;
+}
+
+h3#delivery-question {
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+#door_delivery,
+#pickup {
+  display: none;
+}
+
+label.unselect::before {
+  content: url("/images/radio-0.jpg");
+}
+
+.delivery__info {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.delivery__info::before {
+  display:inline-block;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 5px;
+  content: url("/images/radio-1.png");
+  transform: translateY(.7rem);
+}
+
+.delivery__block {
+  margin-top: .4rem;
+  padding-left: 2.5rem;
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.delivery-form__body {
+  display: none;
+}
+
+#method_sub-title {
+  color: #9e9e9e;
+}
+
+#method_sub-title span {
+  color: #000;
+}
+
+.delivery-date-info {
+  display: flex;width: 95%;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  padding: .7rem 2rem 2rem 1rem;
+  margin-top: 1.8rem;
+}
+
+.icon-block {
+  margin-right: 1rem;
+} 
+
+.delivery-date-text {
+  position: relative;
+  top: -.2px;
+}
+
+.delivery-date-text > div{
+  font-weight: 700;
+}
+
+.delivery-date-text > div:first-child{
+  margin-bottom: 1rem;
+}
+
+.delivery-date-text > div::before{
+  content: "*";
+  margin-right: .5rem;
+}
+
+.section-separator {
+  border: 1px solid #f0f0f0;    
+  margin-bottom: 2rem;
+}
+
+.delivery__block a {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  margin: 1.1rem 0;
+  color: coral;
+  text-decoration: none;
+  display: block;
+}
+
+.shipment-details {
+  border: 1px solid #f0f0f0;
+  height: auto;
+}
+
+.shipment-details__header {
+  font-size: 1.31rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.shipment-details__body {
+  padding: 2rem 2rem 0;
+}
+
+.shipment-details__section > div{
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  color: grey;
+  margin-bottom: 1rem;
+}
+
+div.shipment-details__subheader {
+  font-weight: 500;
+  text-transform: unset;
+}
+
+.shipment-details__body .amt {
+  margin-right: 1.5rem;
+}
+
+.shipment-details__body .range {
+  color: #000;
+  font-weight: 500;
+}
+
+.shipping-costing__block {
+  height: auto;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  padding: 1rem 1rem 0;
+}
+
+.shipping-costing__block > div{
+  margin-bottom: 1rem;
+}
+
+.pull-right {
+  float: right;
+  font-weight: 500;
+}
+
+.shipping-costing__block > div:nth-child(1) > .pull-right {
+  font-weight: 400;
+}
+
+.shipping-costing__block > div:nth-child(3) {
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 1.5rem;
+}
+
+.shipping-costing__block > div:nth-child(4) {
+  font-weight: 500;
+}
+
+.shipping-costing__block > div:nth-child(4) > .pull-right {
+  color: coral;
+}
+
+.shipping-costing__block #hint {
+  text-align: center;
+  color: #cacaca;
+  margin-top: 2rem;
+}
+
+.payment-form__block {
+  height: auto;
+}
+
+.payment-form__body {
+  display: none;
+}
+
+h3#payment-question {
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.payment-form .info{
+  padding-left: 2rem;
+  margin: 1rem 0;
+  font-size: 1.35rem;
+}
+
+div.order-summary__body {
+  padding: 1.5rem 1rem 1rem;
+  height: auto;
+}
+
+.order-summary__title {
+  position: relative;
+  top: 1rem;
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order > .img__block {
+  width: 28%;
+}
+
+.order > .item__info {
+  width: 66%;
+}
+
+.order > .img__block > img {
+  width: 100%;
+  height: auto;
+}
+
+.order span {
+  font-size: 1.3rem;
+  margin-bottom: .4rem;
+}
+
+.item__name, .item__price {
+  display: block;
+}
+
+.item__qty span {
+  color: #818181;
+  margin-right: .5rem;
+}
+
+.item__price {
+  background-color: #c0bfbf;
+  width: fit-content;
+}
+
+.flight {
+  background-image: url('/images/icons/flight.svg');
+  background-size: 1.2rem 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: .5rem;
+  display: inline-block;
 }
