@@ -45,7 +45,7 @@ main.container {
 .title {
   text-transform: uppercase;
   position: relative;
-  left: 3rem;
+  left: 3rem;     
   top: .5rem;
   font-size: 1.4rem;
   font-weight: 500;

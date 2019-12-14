@@ -8,11 +8,10 @@
 
   $.Shop.prototype = {
     init: function() {
+
       // Properties
       this.cartPrefix = "Shopping-";
       this.cartName = this.cartPrefix + "cart";
-      this.shippingRates = this.cartPrefix + "shipping-rates";
-      this.total = this.cartPrefix + "total";
       this.total_items = "Total_items";
       this.storage = sessionStorage;
 
@@ -28,13 +27,12 @@
       this.$vCartCheckout = this.$element.find('#vcart-checkout');
       this.$vCartTr = this.$element.find('.vcart__tr');
       
+      // Higher Order Declarations
 
-      // Method Invocations and variable declarations
-
-      var self = this;
-      var cartCopy = self._toJSONObject(this.storage.getItem(this.cartName));
-      var items = cartCopy.items;
-      var Titems = self._convertString(this.storage.getItem(this.total_items));
+      const self = this;
+      let cartCopy = self._toJSONObject(this.storage.getItem(this.cartName));
+      let items = cartCopy.items;
+      let Titems = self._convertString(this.storage.getItem(this.total_items));
       
 
 

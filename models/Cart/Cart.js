@@ -11,25 +11,26 @@ const cartSchema = new Schema({
   user_cart: [{
     product: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Product',
-      required: 'You must supply a product ID'
+      ref: 'Product'
     },
-    name: {
-      type: String,
-      required: "Item name is required",
-    },
-    size: {
-      type: String
-    },
+    name: String,
+    size: String,
+    price: Number,
     qty: {
       type: Number,
-      required: "You must specify a quantity"
+      required: "You must specify a quantity",
+      default: 0
     },
     subtotal: {
       type: Number,
-      required: "You supply a subtotal"
+      required: "You supply a subtotal",
+      default: 0
     }
-  }]
+  }],
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('Cart', cartSchema);

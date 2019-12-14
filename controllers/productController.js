@@ -47,7 +47,7 @@ exports.getOneProduct = async (req, res) => {
   return res.render('product', {
     title: product.short_description,
     product,
-    price: product.product_price.current_price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"),
+    price: product.product_price.current_price,
     oddprice: '1000000'.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"),
     sizes
   })

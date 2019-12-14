@@ -12,8 +12,6 @@
 
       this.cartPrefix = "Shopping-";
       this.cartName = this.cartPrefix + "cart";
-      this.shippingRates = this.cartPrefix + "shipping-rates";
-      this.total = this.cartPrefix + "total";
       this.storage = sessionStorage;
       this.total_items = "Total_items";
 
@@ -36,8 +34,6 @@
       this.closeBackDrop();
     },
 
-    // Public methods
-
     // Creates the cart keys in the session storage
 
     createCart: function() {
@@ -45,10 +41,8 @@
         var cart = {};
         cart.items = [];
 
-        this.storage.setItem( this.cartName, this._toJSONString( cart ) );
-        this.storage.setItem( this.shippingRates, "0" );
-        this.storage.setItem(this.total, "0")
-        this.storage.setItem(this.total_items, "0")
+        this.storage.setItem( this.cartName, this._toJSONString( cart ));
+        this.storage.setItem(this.total_items, 0)
       }
     },
 
@@ -56,20 +50,19 @@
 		
 		handleAddToCartForm: function() {
 
-      // variable declaration
       var self = this
       var $form = self.$formAddToCart;
       var $product = $form.parent();
       var name =  $product.data( "name" );
       var imgURL = $product.data( "imgurl" );
-      var price = self._convertString( ($product.data( "price" ) || '') );
-      var total_items = self.storage.getItem(self.total_items);
+      var price = $product.data("price");
+      var total_items = parseInt(self.storage.getItem(self.total_items));
 
 
-      // initiated functions
+      // initialized functions
       
       self.$implicitForm.css('display','inline').prepend(`<input type="hidden" name="cart_items" />`)
-      self.$cartItemsCounter.text('(' + (total_items || "") + ')');
+      self.$cartItemsCounter.text( total_items ? '(' + total_items +  ')' : "");
 
       // functions called based on events
 
@@ -107,34 +100,27 @@
             var cartCopy = self._toJSONObject(cart);
             var result = self._containsObject({name, price, size}, cartCopy.items);
             if(result) {
-              alert('already added to cart');
-              return;
+              self._checkoutBackdrop();
             } else {
-              var total_items = self.storage.getItem(self.total_items);
-              total_items++;
-              self.storage.setItem(self.total_items, total_items);
-              self.$cartItemsCounter.text(total_items ? `(${total_items})` : "");
-              
+                var total_items = self.storage.getItem(self.total_items);
+                total_items++;
+                self.storage.setItem(self.total_items, total_items);
+                self.$cartItemsCounter.text(total_items ? `(${total_items})` : "");
+                
 
-              cartCopy.items.push({
-                name,
-                price,
-                size,
-                imgURL
-              });
-              
+                cartCopy.items.push({
+                  name,
+                  price,
+                  size,
+                  imgURL
+                });
+              }
               let serverData = encodeURIComponent(self._toJSONString(cartCopy.items));
               console.log(serverData);
               self.$implicitForm.find('input').val(serverData);
 
               self.storage.setItem(self.cartName, self._toJSONString(cartCopy));
-
-              self.$backdrop.css({
-                display: 'flex'
-              }).find('#backdrop__info1').css({
-                display: 'block'
-              }).siblings().hide();
-            }
+              self._checkoutBackdrop();
         }
       });
     },
@@ -160,11 +146,27 @@
 
     // Private Methods
 
+    /* Display checkout backdrop*/
+
+    _checkoutBackdrop: function() {
+      self = this;
+      self.$backdrop.css({
+        display: 'flex'
+      }).find('#backdrop__info1').css({
+        display: 'block'
+      }).siblings().hide();
+    },
+
+
+    /* Converts a JSON string to a JavaScript object
+		 * @param str String the JSON string
+		 * @returns obj Object the JavaScript object
+		 */
+
     _toJSONString: function( obj ) {
 			var str = JSON.stringify( obj );
 			return str;
     },
-
 
     /* Converts a JSON string to a JavaScript object
 		 * @param str String the JSON string
