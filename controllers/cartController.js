@@ -3,6 +3,26 @@ const Product = mongoose.model("Product");
 const User = mongoose.model("User");
 const Cart = mongoose.model("Cart");
 
+const addToCart = async (items) => {
+  let newCart = [];
+  for(var i=0; i<items.length; i++) {
+    let product_item = await Product.findOne({
+      short_description: items[i].name
+    }).populate("product_price");
+
+    newItem = {
+      name: items[i].name,
+      size: items[i].size,
+      price: parseInt(product_item.product_price.current_price),
+      imgURL: items[i].imgURL,
+      qty: items[i].qty || 1,
+      subtotal: items[i].subtotal || parseInt(product_item.product_price.current_price)
+    }
+    newCart.push(newItem);
+  }
+  return newCart;
+}
+
 exports.viewCartnCheckout = async (req, res) => {
   const cart = await Cart.findOne({
     user_id: req.user._id,
@@ -10,88 +30,61 @@ exports.viewCartnCheckout = async (req, res) => {
   });
   const items = JSON.parse(decodeURIComponent(req.body.cart_items));
   if(cart) {
-    let newCart = [];
-    for(var i=0; i<items.length; i++) {
-      let product_item = await Product.findOne({
-        short_description: items[i].name
-      });
-
-      newItem = {
-        name: items[i].name,
-        size: items[i].size,
-        price: items[i].price,
-        product: product_item._id
-      }
-      newCart.push(newItem);
-    }
-    cart.user_cart = newCart;
+    cart.user_cart = await addToCart(items);
     await cart.save();
-    console.log(cart);
+
+    let goCart = [];
+    for(var j=0; j<cart.user_cart.length; j++) {
+      let {price, qty, subtotal, name, imgURL, size} = cart.user_cart[j];
+      goCart.push({price, qty, subtotal, name, imgURL, size});
+    }
+
+    res.render('viewCartnCheckout', {
+      goCart
+    });
   } else {
-      let newCart = [];
-
-      for(var i=0; i<items.length; i++) {
-        let product_item = await Product.findOne({
-          short_description: items[i].name
-        });
-
-        let newItem = {
-          name: items[i].name,
-          size: items[i].size,
-          price: parseInt(items[i].price),
-          product: product_item._id
-        };
-        newCart.push(newItem);
-      }
-
       const cart = await new Cart({
         user_id: req.user._id,
-        user_cart: newCart
+        user_cart: await addToCart(items)
+      }).save();
+
+      let goCart = [];
+      for(var j=0; j<cart.user_cart.length; j++) {
+        let {price, qty, subtotal, name, imgURL, size} = cart.user_cart[j];
+        goCart.push({price, qty, subtotal, name, imgURL, size});
+      }
+
+      res.render('viewCartnCheckout', {
+        goCart
       });
-      await cart.save();
-      console.log(newCart);
     }
-  // const display_prices = items.map((item)=>{
-  //   return item.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  // });
-  // res.render('viewCartnCheckout', {
-  //   cart: cart
-  // });
 };
 
 exports.calcSubTotal = async (req, res) => {
-  
-  let itemsInCart = await JSON.parse(req.body.items_in_cart);
-
+  let itemsInCart = await JSON.parse(decodeURIComponent(req.body.items_in_cart));
+  var total = 0;
+  var newItemsInCart =[];
   for(var i=0; i<itemsInCart.length; i++) {
-    let product = await Product.findOne({
+    const product = await Product.findOne({
       short_description: itemsInCart[i].name
     }).populate('product_price');
-    itemsInCart[i].subtotal = parseInt(itemsInCart[i].qty) * parseInt(product.product_price.current_price);
-    itemsInCart[i].product = product._id;
+    console.log(product);
+    itemsInCart[i].price = product.product_price.current_price;
+    itemsInCart[i].subtotal = itemsInCart[i].price * itemsInCart[i].qty;
+    total = total + itemsInCart[i].subtotal;
+    newItemsInCart.push(itemsInCart[i]);
   }
 
-  const user = await User.findOne({
-    _id: req.user.id
+  const cart = await Cart.findOne({
+    user_id: req.user._id,
+    isDeleted: false
+  })
+  cart.user_cart = newItemsInCart;
+  await cart.save();
+
+  console.log(total + '\n');
+  console.log(cart);
+  res.render('checkout', {
+    indicant: 3
   });
-
-  if(user) {
-    const cart = await Cart.find({
-      user_id: user._id,
-      isDeleted: false
-    }, {user_id: 0});
-    if(cart) {
-      cart.user_cart = itemsInCart
-    } else {
-      const cart = await new Cart({
-        user_id: user._id,
-        user_cart: itemsInCart
-      });
-    }
-          
-    await cart.save();
-    res.render('checkout', {
-      cart
-    });
-  }
 };

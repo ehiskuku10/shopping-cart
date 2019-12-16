@@ -55,7 +55,6 @@
       var $product = $form.parent();
       var name =  $product.data( "name" );
       var imgURL = $product.data( "imgurl" );
-      var price = $product.data("price");
       var total_items = parseInt(self.storage.getItem(self.total_items));
 
 
@@ -98,7 +97,7 @@
 
             var cart = self.storage.getItem(self.cartName);
             var cartCopy = self._toJSONObject(cart);
-            var result = self._containsObject({name, price, size}, cartCopy.items);
+            var result = self._containsObject({name, size}, cartCopy.items);
             if(result) {
               self._checkoutBackdrop();
             } else {
@@ -106,13 +105,13 @@
                 total_items++;
                 self.storage.setItem(self.total_items, total_items);
                 self.$cartItemsCounter.text(total_items ? `(${total_items})` : "");
-                
 
                 cartCopy.items.push({
                   name,
-                  price,
                   size,
-                  imgURL
+                  imgURL,
+                  qty: 0,
+                  subtotal: 0
                 });
               }
               let serverData = encodeURIComponent(self._toJSONString(cartCopy.items));

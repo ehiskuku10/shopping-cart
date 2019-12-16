@@ -7,7 +7,7 @@ block links
   link(rel="stylesheet" href="/stylesheet/cart/viewCartnCheckout.css")
 
 block content
-  div(class="row1")
+  div(class="row1" id="tether" data-items=goCart)
     div(class="vcart__heading")
       h3(class="vcart__text" id="numItemsInCart") 
     div(class="vcart__tr vcart__tr--1")
@@ -17,14 +17,14 @@ block content
       div(class="vcart__th vcart__th--4") subtotal
 
     - let x = 0
-    each item in items
+    each item in goCart
       div(class="vcart__tr")
         div(class="vcart__tb vcart__tb--1")
           div(class="vcart__img-block")
             img(class="vcart__img" src=`${item.imgURL}`)
           div(class="vcart__item-details")
             div(class="vcart__item-seller") [Seller Info here]
-            div(class="vcart__item-name" data-name=`${item.name}`) #{item.name}
+            div(class="vcart__item-name" data-name=`${item.name}` data-image=`${item.imgURL}`) #{item.name}
             div(class="vcart__item-size" data-size=`${item.size}`) #{item.size}
             div(class="vcart__item-actions")
               a(href="#") 
@@ -37,7 +37,7 @@ block content
           div(class="qty__toggle")
             ul(class="qty-list")
               li(class="qty-list__item figure-head") 
-                span #{item.quantity || 1}
+                span #{item.qty || 1}
                 img(id="caret-img" src="/images/triangular-arrow-pointing-down.png")
               - const quantities = [1,2,3,4,5,6,7,8,9,10]
               ul(class="dropdown-list" data-price=item.price data-index=`${x}`)
@@ -48,10 +48,10 @@ block content
           span(class="old-price")
           span(class="price-diff")
         div(class="vcart__tb vcart__tb--4")
-          span(class="sub-total" data-index=`${x++}`) $#{item.subTotal || item.price}
+          span(class="sub-total" data-index=`${x++}`) $#{item.subtotal || item.price}
   div(class="row2")
     div(class="total-cost")
-      span(class="total-key") Total:
+      span(class="total-key") Total: 
       span(class="total-value") 
     p(class="shipping-info") Shipping fee is not included yet
   div(class="row3")

@@ -9,24 +9,21 @@ const cartSchema = new Schema({
     required: "You must supply a buyer ID"
   },
   user_cart: [{
-    product: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Product'
-    },
     name: String,
     size: String,
+    imgURL: String,
     price: Number,
     qty: {
       type: Number,
-      required: "You must specify a quantity",
-      default: 0
+      default: 1
     },
     subtotal: {
-      type: Number,
-      required: "You supply a subtotal",
-      default: 0
+      type: Number
     }
   }],
+  total_cost: {
+    type: Number
+  },
   isDeleted: {
     type: Boolean,
     default: false

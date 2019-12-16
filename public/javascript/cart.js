@@ -1,5 +1,3 @@
-// Cart n Checkout Logic
-
 (function($) {
   $.Shop = function(element) {
     this.$element = $(element);
@@ -26,24 +24,27 @@
       this.$subTotal = this.$element.find('.sub-total');
       this.$vCartCheckout = this.$element.find('#vcart-checkout');
       this.$vCartTr = this.$element.find('.vcart__tr');
+      this.$tether = this.$element.find('#tether');
       
       // Higher Order Declarations
 
       const self = this;
-      let cartCopy = self._toJSONObject(this.storage.getItem(this.cartName));
+      self._updateStore(self.$tether.data('items'));
+      let cartCopy = self._toJSONObject(self.storage.getItem(self.cartName));
       let items = cartCopy.items;
-      let Titems = self._convertString(this.storage.getItem(this.total_items));
+      console.log(items)
+      let Titems = self._convertString(self.storage.getItem(self.total_items));
       
-
-
+      
       self.$vCartCheckout.click(function(e) {
         var items_in_cart = [];
         self.$vCartTr.each(function(index, elem) {
           if(index > 0) {
             var name = $(elem).find(".vcart__item-name").data("name");
             var size = $(elem).find(".vcart__item-size").data("size");
+            var imgURL = $(elem).find(".vcart__item-name").data("image");
             var qty = $(elem).find('.figure-head').children('span').text();
-            items_in_cart.push({name, size, qty});
+            items_in_cart.push({name, size, qty, imgURL});
           }
         });
         $(`<form method='post' action='/cart/calculate-subtotal'>
@@ -113,6 +114,27 @@
       self.$cartItemsCounter.text(Titems ? `(${Titems})` : "");
 
     },
+
+      /* Converts a JSON string to a JavaScript object
+		 * @param str String the JSON string
+		 * @returns obj Object the JavaScript object
+		 */
+
+    _toJSONString: function( obj ) {
+			var str = JSON.stringify( obj );
+			return str;
+    },
+
+    /* Update session storage with refresh data
+    * @param arr Array the array of objects
+    */
+
+    _updateStore: function(arr) {
+      var cartCopy = this._toJSONObject(this.storage.getItem(this.cartName));
+      cartCopy.items = arr;
+      this.storage.setItem(this.cartName, this._toJSONString(cartCopy));
+    },
+
 
     /* Converts a numeric string into a number
 		 * @param numStr String the numeric string to be converted

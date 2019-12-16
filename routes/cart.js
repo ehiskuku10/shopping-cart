@@ -6,6 +6,6 @@ const router = express.Router();
 
 
 router.post('/view-cart-n-checkout', catchErrors(cartController.viewCartnCheckout));
-router.post('/calculate-subtotal', authController.isLoggedIn, cartController.calcSubTotal);
+router.post('/calculate-subtotal', authController.isLoggedIn, catchErrors(cartController.calcSubTotal));
 
 module.exports = router

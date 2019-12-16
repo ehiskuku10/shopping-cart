@@ -9,7 +9,7 @@ block links
 
 block content
   main.container
-    div(class="checkout-form")
+    div(class="checkout-form" data-indicant=`${indicant}`)
 
       div(class="address-form__block modal")
         header(class="address-form__header")
@@ -53,6 +53,7 @@ block content
             div(class="input-block" id="btn")
               label Required
               input(type="submit" value="save and continue")
+        div(class="under-lay1") hello
 
       div(class="delivery-form__block modal")
         header(class="delivery-form__header")
@@ -122,6 +123,7 @@ block content
               div(id="hint") You will be able to add a voucher in the next step
               div(class="input-block" id="btn")
                 input(type="submit" value="proceed to next step")
+        div(class="under-lay2") hello
 
       div(class="payment-form__block modal")
         header(class="payment-form__header")
@@ -155,6 +157,7 @@ block content
                 span(class="pull-right") ₦ 45,554
               div(class="input-block" id="btn")
                 input(type="submit" value="proceed to next step")
+        div(class="under-lay3") hello
 
     div(class="order-summary modal")
       header(class="order-summary__header")
@@ -170,3 +173,6 @@ block content
               span Qty:
               |X
 
+    block scripts
+    script(src="/javascript/jquery.min.js")
+    script(src="/javascript/checkout.js")

@@ -192,10 +192,6 @@ label.unselect::before {
   font-weight: 500;
 }
 
-.delivery-form__body {
-  display: none;
-}
-
 #method_sub-title {
   color: #9e9e9e;
 }
@@ -328,10 +324,6 @@ div.shipment-details__subheader {
   height: auto;
 }
 
-.payment-form__body {
-  display: none;
-}
-
 h3#payment-question {
   font-weight: 500;
   font-size: 1.4rem;
@@ -401,4 +393,13 @@ div.order-summary__body {
   height: 1.2rem;
   margin-right: .5rem;
   display: inline-block;
+}
+
+.hide {
+  display: none
+}
+
+.under-lay1, .under-lay2, 
+.under-lay3 {
+  display: none;
 }
